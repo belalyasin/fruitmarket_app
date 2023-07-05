@@ -15,10 +15,20 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $category = Category::all();
-        return response()->json([
-                "categories" =>  CategoryResources::collection($category),
-        ]);
+        $categories = Category::with('sub_categories')->get();
+        $data = $categories->map(function ($category) {
+            return [
+                'id' => $category->id,
+                'title' => $category->title,
+                'description' => $category->description,
+                'sub_categories' => $category->sub_categories->map(function ($sub_category) {
+                    return [
+                        'title' => $sub_category->title,
+                    ];
+                }),
+            ];
+        });
+        return response()->json(['data' => $data], status: 200);
     }
 
     /**
