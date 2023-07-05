@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->foreignIdFor(Product::class)->constrained();
+            // $table->foreignIdFor(Product::class)->constrained();
             $table->timestamps();
         });
     }
