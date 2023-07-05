@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('price');
             $table->enum('rate',["0","1","2","3","4","5"]);
             $table->string('description');
+            $table->string('image');
             $table->boolean('isFavorite')->default(false);
             $table->foreignIdFor(Sub_Category::class)->constrained();
             $table->timestamps();
