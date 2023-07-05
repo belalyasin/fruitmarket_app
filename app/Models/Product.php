@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function sub_categories()
+    public function sub__category()
     {
         return $this->belongsTo(Sub_Category::class);
     }
@@ -26,8 +26,8 @@ class Product extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function nutrition()
+    public function product_nutrition()
     {
-        return $this->hasMany(Nutrition::class);
+        return $this->hasMany(Product_Nutrition::class);
     }
 }
