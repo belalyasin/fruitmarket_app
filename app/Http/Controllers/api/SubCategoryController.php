@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SubCategoryResources;
+use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -13,6 +15,28 @@ class SubCategoryController extends Controller
     public function index()
     {
         //
+        $subCategories = Sub_Category::with('products')->get();
+        $data = $subCategories->map(function ($subCategory) {
+            return [
+                'id' => $subCategory->id,
+                'title' => $subCategory->title,
+                'discount' => $subCategory->discount,
+                'description' => $subCategory->description,
+                'products' => $subCategory->products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'rate' => $product->rate,
+                        'description' => $product->description,
+                        'image' => $product->image,
+                        'isFavorite' => $product->isFavorite ? true : false,
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json(['data' => $data], 200);
     }
 
     /**
