@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\NutritionController;
+use App\Http\Controllers\api\ProductController;
+use App\Http\Controllers\api\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
+});
+Route::prefix('sub-category')->group(function () {
+    Route::get('/', [SubCategoryController::class, 'index']);
+});
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+});
+Route::prefix('nutrition')->group(function () {
+    Route::get('/', [NutritionController::class, 'index']);
 });
