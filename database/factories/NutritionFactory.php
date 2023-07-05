@@ -20,7 +20,7 @@ class NutritionFactory extends Factory
             //
             "name"=>$this->faker->userName(),
             "description"=>$this->faker->word(),
-            "product_id"=>$this->faker->randomDigitNotZero(),
+            // "product_id"=>$this->faker->randomDigitNotZero(),
         ];
     }
 }
