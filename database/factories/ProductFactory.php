@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             "price"=>$this->faker->randomFloat(),
             "rate"=>$this->faker->randomElement(["0","1","2","3","4","5"]),
             "description"=>$this->faker->word(),
+            'image' => fake()->imageUrl(),
             "isFavorite"=>$this->faker->boolean(),
             "sub__category_id"=>$this->faker->randomDigitNotZero(),
         ];
