@@ -9,8 +9,8 @@ class Nutrition extends Model
 {
     use HasFactory;
 
-    public function products()
+    public function product_nutrition()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product_Nutrition::class);
     }
 }
