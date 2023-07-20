@@ -16,7 +16,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         //
-        $subCategories = Category::where('parent_id', '!=', '0')->with('parentCategory')->get();
+        $subCategories = Category::where('parent_id', '!=', null)->with('parentCategory')->get();
 //        dd($subCategories);
         return response()->view('cms.subCategories.index', ['subCategories' => $subCategories]);
     }
@@ -27,7 +27,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         //
-        $categories = Category::where('parent_id', '==', '0')->get();
+        $categories = Category::where('parent_id', '==', null)->get();
         return response()->view('cms.subCategories.create', ['categories' => $categories]);
     }
 
@@ -73,7 +73,7 @@ class SubCategoryController extends Controller
     public function edit(Category $subCategory)
     {
         //
-        $categories = Category::where('parent_id', '==', '0')->get();
+        $categories = Category::where('parent_id', '==', null)->get();
         return response()->view('cms.subCategories.edit', ['categories' => $categories, 'subCategory' => $subCategory]);
     }
 
