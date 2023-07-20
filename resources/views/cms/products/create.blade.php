@@ -73,7 +73,7 @@
                                   </div>
 
                                 <div class="form-group">
-                                    <label for="category_id">{{ __('cms.subcategory') }}</label>
+                                    <label for="category_id">{{ __('cms.sub_category') }}</label>
                                     <select class="form-control subCategories" style="width: 100%;" id="category_id" name="category_id">
                                         @foreach ($subCategories as $subCategory)
                                             <option value="{{ $subCategory->id }}">{{ $subCategory->title }}</option>

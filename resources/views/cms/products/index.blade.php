@@ -62,20 +62,16 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="#" onclick="confirmDelete('{{$product->id}}',this)"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                                {{--                                                <form action="{{ route('products.destroy', $product->id) }}"--}}
-                                                {{--                                                      method="POST">--}}
-                                                {{--                                                    @csrf--}}
-                                                {{--                                                    @method('DELETE')--}}
-                                                {{--                                                    <button type="submit"--}}
-                                                {{--                                                            onclick="confirmDelete('{{$product->id}}',this)"--}}
-                                                {{--                                                            class="btn btn-danger"--}}
-                                                {{--                                                            data-toggle="tooltip" title='Delete'><i--}}
-                                                {{--                                                            class="fas fa-trash"></i></button>--}}
-                                                {{--                                                </form>--}}
+{{--                                                <a href="/cms/admin/products/{{$product->id)}}"--}}
+{{--                                                   class="btn btn-danger">--}}
+{{--                                                    <i class="fas fa-trash"></i>--}}
+{{--                                                </a>--}}
+                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-md btn-danger show-alert-delete-box"
+                                                            data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i></button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
