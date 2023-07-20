@@ -15,13 +15,13 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::with('sub_categories')->get();
+        $categories = Category::where('parent_id','=','0')->get();
         $data = $categories->map(function ($category) {
             return [
                 'id' => $category->id,
                 'title' => $category->title,
                 'description' => $category->description,
-                'sub_categories' => $category->sub_categories->map(function ($sub_category) {
+                'sub_categories' => $category->subCategories->map(function ($sub_category) {
                     return [
                         'title' => $sub_category->title,
                     ];
