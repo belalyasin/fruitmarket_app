@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('title');
             $table->string('description')->nullable();
+            $table->float('discount')->nullable();
+            $table->foreignId('parent_id')->constrained('categories','id');
             $table->timestamps();
         });
     }
