@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        $subCategories = Category::where('parent_id', '!=', null)->get();
+        $subCategories = Category::where('parent_id', '!=', NULL)->get();
         $nutrients = Nutrition::all();
         // dd($subCategories);
         // dd($nutrients);
@@ -110,7 +110,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
-        $subCategories = Category::where('parent_id', '!=', null)->get();
+        $subCategories = Category::where('parent_id', '!=', NULL)->get();
         $nutrients = Nutrition::all();
         $selected_nutrient = Nutrition::whereIn('id', $product->product_nutrition->pluck('nutrition_id'))->get();
 //        dd($nutrients);
