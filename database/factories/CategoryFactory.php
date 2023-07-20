@@ -18,8 +18,10 @@ class CategoryFactory extends Factory
     {
         return [
             //
-            "title"=>$this->faker->title(),
+            "title"=>$this->faker->name(),
             "description"=>$this->faker->word(),
+            "discount"=>$this->faker->randomDigitNotNull(),
+            "parent_id"=>"0",
         ];
     }
 }
