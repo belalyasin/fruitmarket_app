@@ -24,7 +24,7 @@ class ProductFactory extends Factory
             "description"=>$this->faker->word(),
             'image' => fake()->imageUrl(),
             "isFavorite"=>$this->faker->boolean(),
-            "sub__category_id"=>$this->faker->randomDigitNotZero(),
+            "category_id"=>$this->faker->randomDigitNotZero(),
         ];
     }
 }
