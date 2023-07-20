@@ -45,7 +45,7 @@
                                         <td>{{\Carbon\Carbon::parse($category->created_at)->format('Y-m-d')}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{route('products.edit',[$category->id])}}"
+                                                <a href="{{route('categories.edit',[$category->id])}}"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

@@ -65,17 +65,34 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
         //
+        return response()->view('cms.categories.edit', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|min:3',
+            'description' => 'nullable|string|min:10'
+        ]);
+        if (!$validator->fails()) {
+            $category->title = $request->input('title');
+            $category->description = $request->input('description');
+            $category->parent_id = null;
+            $isSaved = $category->save();
+            return response()->json(
+                ['message' => $isSaved ? 'Updated successfully' : 'Update failed'],
+                $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
+            );
+        } else {
+            return response()->json(['message' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
