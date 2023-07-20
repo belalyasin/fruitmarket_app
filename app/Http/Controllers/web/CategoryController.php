@@ -43,7 +43,7 @@ class CategoryController extends Controller
             $category = new Category();
             $category->title = $request->input('title');
             $category->description = $request->input('description');
-            $category->parent_id = 0;
+            $category->parent_id = null;
             $isSaved = $category->save();
             return response()->json(
                 ['message' => $isSaved ? 'Saved successfully' : 'Save failed'],

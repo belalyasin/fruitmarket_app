@@ -183,7 +183,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+//        dd('delete');
         $product->delete();
+//        return redirect()->viewPath('cms.products.index');
         return redirect()->back();
     }
 }
