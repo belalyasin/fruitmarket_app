@@ -16,8 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::where('parent_id','=','0')->get();
-        return response()->view('cms.categories.index',['categories'=> $categories]);
+        $categories = Category::where('parent_id', '=', null)->get();
+        return response()->view('cms.categories.index', ['categories' => $categories]);
     }
 
     /**
