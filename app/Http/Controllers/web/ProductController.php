@@ -64,14 +64,11 @@ class ProductController extends Controller
             $product->description = $request->input('description');
             $product->category_id = $request->input("category_id");
             if ($request->hasFile('image')) {
-                $image = $request->hasFile('image');
-//                $path = \Storage::disk('public')->put('public/image', $image);
                 $image = $request->file('image');
-//                $path = $image->store('public/image'); // Specify the directory where you want to store the image
-                $imageName = time() . rand(1, 200) . '.' . $image->extension();
-                $image->move(public_path('image//' . 'products'), $imageName);
                 // Save the image path to the product
-                $product->image = $imageName;
+                $path = time() . '.' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $path);
+                $product->image = $path;
             }
             $isSaved = $product->save();
             if ($request->hasAny('nutrients')) {
@@ -144,14 +141,11 @@ class ProductController extends Controller
             $product->description = $request->input('description');
             $product->category_id = $request->input("category_id");
             if ($request->hasFile('image')) {
-                $image = $request->hasFile('image');
-//                $path = \Storage::disk('public')->put('public/image', $image);
                 $image = $request->file('image');
-//                $path = $image->store('public/image'); // Specify the directory where you want to store the image
-                $imageName = time() . rand(1, 200) . '.' . $image->extension();
-                $image->move(public_path('image//' . 'products'), $imageName);
+                $path = time() . '.' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $path);
                 // Save the image path to the product
-                $product->image = $imageName;
+                $product->image = $path;
             }
             $isSaved = $product->save();
             if ($request->hasAny('nutrients')) {
