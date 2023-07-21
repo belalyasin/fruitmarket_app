@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubCategoryResources;
+use App\Models\Category;
 use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         //
-        $subCategories = Sub_Category::with('products')->get();
+        $subCategories = Category::where('parent_id','!=',null)->with('products')->get();
         $data = $subCategories->map(function ($subCategory) {
             return [
                 'id' => $subCategory->id,
