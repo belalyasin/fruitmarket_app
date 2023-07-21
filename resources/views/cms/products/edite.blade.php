@@ -23,7 +23,8 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="edit-form" enctype="multipart/form-data" action="{{route('products.update',$product->id)}}" method="POST">
+                        <form id="edit-form" enctype="multipart/form-data"
+                              action="{{route('products.update',$product->id)}}" method="POST">
                             @csrf
                             @method('put')
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -36,8 +37,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="price">{{ __('cms.price') }}</label>
-                                    <input type="number" class="form-control" id="price" value="{{ $product->price }}"
-                                           name="price"
+                                    <input type="number" class="form-control" id="price" name="price"
+                                           value="{{ $product->price }}"
                                            placeholder="{{ __('cms.price') }}">
                                 </div>
 
@@ -93,7 +94,6 @@
                             <div class="card-footer">
                                 <button type="submit"
                                         class="btn btn-primary">{{ __('cms.update') }}</button>
-                                {{-- <input type="submit" value="{{ __('cms.save') }}" class="btn btn-primary"> --}}
                             </div>
                         </form>
                     </div>
