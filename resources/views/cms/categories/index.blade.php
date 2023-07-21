@@ -49,10 +49,19 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="#" onclick="confirmDelete('{{$category->id}}',this)"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
+{{--                                                <a href="#" onclick="confirmDelete('{{$category->id}}',this)"--}}
+{{--                                                   class="btn btn-danger">--}}
+{{--                                                    <i class="fas fa-trash"></i>--}}
+{{--                                                </a>--}}
+                                                <form action="{{ route('categories.destroy',$category->id) }}"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                            class="btn btn-md btn-danger show-alert-delete-box"
+                                                            data-toggle="tooltip" title='Delete'><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -75,6 +84,7 @@
 @endsection
 
 @section('scripts')
+    @include('cms.alertScript')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(id, element) {
