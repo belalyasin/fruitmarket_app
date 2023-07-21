@@ -78,7 +78,7 @@
         function performStore() {
             // alert('Perform Store Function');
             // console.log('Perform Store - Function');
-            axios.post('/cms/admin/subCategories', {
+            axios.put('/cms/admin/subCategories/{{$subCategory->id}}', {
                 title: document.getElementById('title').value,
                 discount: document.getElementById('discount').value,
                 description: document.getElementById('description').value,
