@@ -44,12 +44,12 @@ class SubCategoryController extends Controller
             'parent_id' => 'required|numeric|exists:categories,id',
         ]);
         if (!$validator->fails()) {
-            $category = new Category();
-            $category->title = $request->input('title');
-            $category->discount = $request->input('discount');
-            $category->description = $request->input('description');
-            $category->parent_id = $request->input('parent_id');
-            $isSaved = $category->save();
+            $subCategory = new Category();
+            $subCategory->title = $request->input('title');
+            $subCategory->discount = $request->input('discount');
+            $subCategory->description = $request->input('description');
+            $subCategory->parent_id = $request->input('parent_id');
+            $isSaved = $subCategory->save();
             return response()->json(
                 ['message' => $isSaved ? 'Saved successfully' : 'Save failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
@@ -80,9 +80,28 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $subCategory)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|min:3',
+            'discount' => 'required|numeric',
+            'description' => 'nullable|string|min:8',
+            'parent_id' => 'required|numeric|exists:categories,id',
+        ]);
+        if (!$validator->fails()) {
+            $subCategory->title = $request->input('title');
+            $subCategory->discount = $request->input('discount');
+            $subCategory->description = $request->input('description');
+            $subCategory->parent_id = $request->input('parent_id');
+            $isSaved = $subCategory->save();
+            return response()->json(
+                ['message' => $isSaved ? 'Updated successfully' : 'Update failed'],
+                $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
+            );
+        } else {
+            return response()->json(['message' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
