@@ -44,29 +44,27 @@
                                             @else
                                                 -
                                             @endif</td>
-                                        <td>{{$subCategory->parentCategory->title}}</td>
+                                        <td>{{$subCategory->parentCategory?$subCategory->parentCategory->title:'not found'}}</td>
                                         <td>{{\Carbon\Carbon::parse($subCategory->created_at)->format('Y-m-d')}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{route('subCategories.edit',[$subCategory->id])}}"
+                                                <a href="{{route('subCategories.edit',$subCategory->id)}}"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="#" onclick="confirmDelete('{{$subCategory->id}}',this)"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-{{--                                                <form action="{{ route('subCategories.destroy', [$subCategory->id]) }}"--}}
-{{--                                                      method="POST">--}}
-{{--                                                    @csrf--}}
-{{--                                                    @method('DELETE')--}}
-{{--                                                    <a href="#" onclick="confirmDelete('{{$subCategory->id}}',this)"--}}
-{{--                                                       class="btn btn-danger">--}}
-{{--                                                        <i class="fas fa-trash"></i>--}}
-{{--                                                    </a>--}}
-{{--                                                        <button type="submit" class="btn btn-md btn-danger show-alert-delete-box"--}}
-{{--                                                                data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i></button>--}}
-{{--                                                </form>--}}
+                                                {{--                                                <a href="#" onclick="confirmDelete('{{$subCategory->id}}',this)"--}}
+                                                {{--                                                   class="btn btn-danger">--}}
+                                                {{--                                                    <i class="fas fa-trash"></i>--}}
+                                                {{--                                                </a>--}}
+                                                <form action="{{ route('subCategories.destroy',$subCategory->id) }}"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                            class="btn btn-md btn-danger show-alert-delete-box"
+                                                            data-toggle="tooltip" title='Delete'><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -89,6 +87,7 @@
 @endsection
 
 @section('scripts')
+    @include('cms.alertScript')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(id, element) {
@@ -109,7 +108,7 @@
 
         function performDelete(id, element) {
             // window.alert("here");
-            axios.delete("/cms/admin/subCategories/"+id)
+            axios.delete("/cms/admin/subCategories/" + id)
                 .then(function (response) {
                     console.log(response);
                     toastr.success(response.data.message);
@@ -122,5 +121,5 @@
                 });
         }
     </script>
-{{--    @include('cms.alertScript')--}}
+    {{--    @include('cms.alertScript')--}}
 @endsection
