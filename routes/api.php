@@ -30,6 +30,7 @@ Route::prefix('sub-category')->group(function () {
 });
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{product}', [ProductController::class, 'show']);
 });
 Route::prefix('nutrition')->group(function () {
     Route::get('/', [NutritionController::class, 'index']);
