@@ -16,13 +16,14 @@ class SubCategoryController extends Controller
     public function index()
     {
         //
-        $subCategories = Category::where('parent_id','!=',null)->with('products')->get();
+        $subCategories = Category::where('parent_id', '!=', null)->with(['products', 'parentCategory'])->get();
         $data = $subCategories->map(function ($subCategory) {
             return [
                 'id' => $subCategory->id,
                 'title' => $subCategory->title,
                 'discount' => $subCategory->discount,
                 'description' => $subCategory->description,
+                'category' => $subCategory->parentCategory->title,
                 'products' => $subCategory->products->map(function ($product) {
                     return [
                         'id' => $product->id,
