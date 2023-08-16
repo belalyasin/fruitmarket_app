@@ -3,6 +3,7 @@
 @section('title',__('cms.category'))
 
 @section('page_name',__('cms.index'))
+@section('redirect_page', route('subCategories.index'))
 @section('main_page',__('cms.sub_category'))
 @section('small_page_name',__('cms.index'))
 
