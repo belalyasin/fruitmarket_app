@@ -3,6 +3,7 @@
 @section('title',__('cms.nutrition'))
 
 @section('page_name',__('cms.index'))
+@section('redirect_page', route('nutritions.index'))
 @section('main_page',__('cms.nutrition'))
 @section('small_page_name',__('cms.index'))
 
