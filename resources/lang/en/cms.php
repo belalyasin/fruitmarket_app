@@ -1,8 +1,7 @@
 <?php
 return [
-    "app_name" => "Medical System",
+    "app_name" => "Fruit Market",
     "dashboard" => "Dashboard",
-    "content_management" => "Content Management",
     "index" => "Index",
     "create" => "Create",
     "cities" => "Cities",
@@ -23,9 +22,8 @@ return [
     "create_product" => "Create Product",
     "edite_product" => "Edit Product",
     "update_city" => "Update City",
-    "name_en" => "Name (En)",
-    "name_ar" => "Name (Ar)",
     "active" => "Active",
+    "home" => "Home",
     "save" => "Save",
     "edit" => "Edit",
     "update" => "Update",
@@ -55,6 +53,8 @@ return [
     "user_type" => "User Type",
     "admin" => "Admin",
     "user" => "User",
+    "profile" => "Profile",
+    "admin_profile" => "Admin Profile",
     "created_at" => "Created At",
     "updated_at" => "Updated At",
     "assigned" => "Assigned"
