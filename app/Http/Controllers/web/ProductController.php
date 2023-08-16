@@ -107,6 +107,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
+//        dd($product);
         $subCategories = Category::where('parent_id', '!=', NULL)->get();
         $nutrients = Nutrition::all();
         $selected_nutrient = Nutrition::whereIn('id', $product->product_nutrition->pluck('nutrition_id'))->get();
@@ -120,7 +121,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
-//        dd($request);
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             "price" => 'required|numeric',
@@ -135,11 +136,11 @@ class ProductController extends Controller
 //         dd($request);
         if (!$validator->fails()) {
 //            $product = new Product();
-            $product->name = $request->input('name');
-            $product->price = $request->input('price');
-            $product->rate = $request->input('range_5');
-            $product->description = $request->input('description');
-            $product->category_id = $request->input("category_id");
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->rate = $request->range_5;
+            $product->description = $request->description;
+            $product->category_id = $request->category_id;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $path = time() . '.' . $image->getClientOriginalName();
