@@ -3,6 +3,7 @@
 @section('title',__('cms.category'))
 
 @section('page_name',__('cms.index'))
+@section('redirect_page', route('categories.index'))
 @section('main_page',__('cms.category'))
 @section('small_page_name',__('cms.index'))
 
@@ -34,7 +35,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($categories as $category)
-                                    <tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
                                         <td>{{$category->id}}</td>
                                         <td>{{$category->title}}</td>
                                         <td>@if($category->description!=null)
@@ -49,10 +50,10 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-{{--                                                <a href="#" onclick="confirmDelete('{{$category->id}}',this)"--}}
-{{--                                                   class="btn btn-danger">--}}
-{{--                                                    <i class="fas fa-trash"></i>--}}
-{{--                                                </a>--}}
+                                                {{--                                                <a href="#" onclick="confirmDelete('{{$category->id}}',this)"--}}
+                                                {{--                                                   class="btn btn-danger">--}}
+                                                {{--                                                    <i class="fas fa-trash"></i>--}}
+                                                {{--                                                </a>--}}
                                                 <form action="{{ route('categories.destroy',$category->id) }}"
                                                       method="POST">
                                                     @csrf
@@ -65,6 +66,85 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @if ($category->subCategories->isNotEmpty())
+                                        <tr class="expandable-body d-none">
+                                            <td colspan="5">
+                                                {{--                                                <p>{{$subCategory ? $subCategory->title :"not found"}}</p>--}}
+                                                @foreach($category->subCategories as $subCategory)
+                                                    <div
+                                                        class="col-12 d-flex align-items-stretch flex-column">
+                                                        <div class="card bg-light d-flex flex-fill">
+                                                            <div class="card-header text-muted border-bottom-0">
+                                                                Sub Category Title
+                                                            </div>
+                                                            <div class="card-body pt-0">
+                                                                <div class="row">
+                                                                    <div class="col-7">
+                                                                        <h2 class="lead">
+                                                                            <b>{{$subCategory ? $subCategory->title :"not found"}}</b>
+                                                                        </h2>
+                                                                        <p class="text-muted text-sm"><b>Discount
+                                                                                : </b> {{$subCategory->discount}}
+                                                                        </p>
+                                                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                            <li class="small"><span class="fa-li"><i
+                                                                                        class="fas fa-lg fa-audio-description"></i></span>
+                                                                                Description
+                                                                            </li>
+                                                                            <li class="small"><span class="fa-li"><i
+                                                                                        class="fas fa-lg fa-arrow-alt-circle-right"></i></span>
+                                                                                {{$subCategory->description}}
+                                                                            </li>
+                                                                        </ul>
+                                                                        <p class="text-muted text-sm"><b>Create At
+                                                                                : </b> {{\Carbon\Carbon::parse($category->created_at)->format('Y-m-d')}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <div
+                                                                    class="d-flex justify-content-end align-items-end">
+                                                                    <a href="{{route('categories.edit',[$subCategory->id])}}"
+                                                                       class="btn btn-sm bg-teal mr-2">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </a>
+                                                                    <form
+                                                                        action="{{ route('categories.destroy',$subCategory->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                                class="btn btn-sm btn-danger"
+                                                                                data-toggle="tooltip"
+                                                                                title='Delete'><i
+                                                                                class="fas fa-trash"></i></button>
+                                                                    </form>
+                                                                    {{--                                                                    <a href="#" class="btn btn-sm btn-danger">--}}
+                                                                    {{--                                                                        <i class="fas fa-trash"></i>--}}
+                                                                    {{--                                                                    </a>--}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr class="expandable-body d-none">
+                                            <td colspan="5">
+                                                <div
+                                                    class="col-12 d-flex align-items-stretch flex-column">
+                                                    <div class="card bg-light d-flex flex-fill">
+                                                        <div class="card-header text-muted border-bottom-0">
+                                                            No Sub Category for this Category
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+
                                 @endforeach
                                 </tbody>
                             </table>
@@ -87,6 +167,10 @@
     @include('cms.alertScript')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // $(function () {
+        //     $('#expandable-table-header-row').ExpandableTable('toggleRow')
+        // })
+
         function confirmDelete(id, element) {
             Swal.fire({
                 title: 'Are you sure?',

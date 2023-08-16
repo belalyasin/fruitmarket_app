@@ -2,6 +2,11 @@
 
 @section('title',__('cms.dashboard'))
 
+@section('page_name', __('cms.create'))
+@section('redirect_page', route('categories.index'))
+@section('main_page', __('cms.category'))
+@section('small_page_name', __('cms.create'))
+
 @section('styles')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{asset('cms/plugins/select2/css/select2.min.css')}}">
