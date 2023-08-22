@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('cms/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('cms/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('cms/plugins/ion-rangeslider/css/ion.rangeSlider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('cms/plugins/rateYo/jquery.rateyo.min.css') }}">
 @endsection
 
 @section('main-content')
@@ -34,42 +35,30 @@
                                 <div class="form-group">
                                     <label for="name">{{ __('cms.name') }}</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                           placeholder="{{ __('cms.name') }}">
+                                        placeholder="{{ __('cms.name') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">{{ __('cms.price') }}</label>
                                     <input type="number" class="form-control" id="price" name="price"
-                                           placeholder="{{ __('cms.price') }}">
+                                        placeholder="{{ __('cms.price') }}">
                                 </div>
-                                <div class="col-sm-12">
-                                    {{-- <span class="irs irs--flat js-irs-2">
-                                        <span class="irs"><span class="irs-line"tabindex="0"></span>
-                                            <span class="irs-min" style="visibility: hidden;">0</span>
-                                            <span class="irs-max" style="visibility: visible;">5</span>
-                                            <span class="irs-from" style="visibility: hidden;">0</span>
-                                            <span class="irs-to" style="visibility: hidden;">0</span>
-                                            <span class="irs-single" style="left: -1.60581%;">0</span>
-                                        </span> --}}
-                                    {{-- <span class="irs-grid"></span>
-                                        <span class="irs-bar irs-bar--single" style="left: 0px; width: 1.35227%;"></span>
-                                        <span class="irs-shadow shadow-single" style="display: none;"></span>
-                                        <span class="irs-handle single" style="left: 0%;">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </span>
-                                    </span> --}}
+                                {{-- <div class="col-sm-12">
                                     <label for="range_5">{{ __('cms.rate') }}</label>
                                     <input id="range_5" type="text" name="range_5" value="0"
-                                           class="irs-hidden-input" tabindex="-1" readonly="" hidden>
+                                        class="irs-hidden-input" tabindex="-1" readonly="" hidden>
+                                </div> --}}
+                                <div class="col-sm-12">
+                                    <label for="rate">{{ __('cms.rate') }}</label>
+                                    <input id="rate" type="hidden" name="rate" value="0">
+                                    <div id="rateYo"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{ __('cms.description') }}</label>
                                     <input type="text" class="form-control" id="description" name="description"
-                                           placeholder="{{ __('cms.description') }}">
+                                        placeholder="{{ __('cms.description') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="customFile">{{__('cms.image')}}</label>
+                                    <label for="customFile">{{ __('cms.image') }}</label>
 
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image">
@@ -80,21 +69,19 @@
                                 <div class="form-group">
                                     <label for="category_id">{{ __('cms.sub_category') }}</label>
                                     <select class="form-control subCategories" style="width: 100%;" id="category_id"
-                                            name="category_id">
+                                        name="category_id">
                                         @foreach ($subCategories as $subCategory)
                                             <option value="{{ $subCategory->id }}">{{ $subCategory->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group" data-select2-id="30">
-                                    <label>{{__('cms.nutrients')}}</label>
+                                    <label>{{ __('cms.nutrients') }}</label>
                                     <div class="select2-purple" data-select2-id="29">
                                         <select id="nutrients-select" class="select2 select2-hidden-accessible"
-                                                multiple="multiple" name="nutrients[]"
-                                                data-placeholder="Select a Nutrients"
-                                                data-dropdown-css-class="select2-blue" style="width: 100%;"
-                                                data-select2-id="15"
-                                                tabindex="-1" aria-hidden="true">
+                                            multiple="multiple" name="nutrients[]" data-placeholder="Select a Nutrients"
+                                            data-dropdown-css-class="select2-blue" style="width: 100%;" data-select2-id="15"
+                                            tabindex="-1" aria-hidden="true">
                                             @foreach ($nutrients as $nutrient)
                                                 <option value="{{ $nutrient->id }}">{{ $nutrient->name }}</option>
                                             @endforeach
@@ -106,8 +93,8 @@
 
                             <div class="card-footer">
                                 <button type="button" onclick="performStore()"
-                                        class="btn btn-primary">{{ __('cms.save') }}</button>
-                                {{-- <input type="submit" value="{{ __('cms.save') }}" class="btn btn-primary"> --}}
+                                    class="btn btn-primary">{{ __('cms.save') }}</button>
+                                <a href="{{ route('products.index') }}" class="btn btn-secondary float-right">cancel</a>
                             </div>
                         </form>
                     </div>
@@ -122,15 +109,26 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('cms/plugins/rateYo/rateyo.min.js') }}"></script>
     <script src="{{ asset('cms/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/axios.js') }}"></script>
     <script src="{{ asset('cms/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
     <script src="{{ asset('cms/plugins/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
     <!-- bs-custom-file-input -->
-    <script src="{{asset('cms/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-
+    <script src="{{ asset('cms/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script>
-        $(function () {
+        $(document).ready(function() {
+            $("#rateYo").rateYo({
+                rating: 0, // Initial rating value
+                starWidth: "50px", // Adjust as needed
+                onSet: function(rating, rateYoInstance) {
+                    $("#rate").val(rating); // Update hidden input value
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function() {
 
             $('.select2').select2()
 
@@ -185,13 +183,13 @@
                 //         sub__category_id: document.getElementById('sub__category_id').value,
                 //         nutrients: selectedNutrients,
                 //     })
-                .then(function (response) {
+                .then(function(response) {
                     console.log(response);
                     toastr.success(response.data.message);
                     document.getElementById('create-form').reset();
                     window.location.href = '/cms/admin/products'
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     console.log(error);
                     toastr.error(error.response.data.message);
                 });

@@ -26,12 +26,12 @@ Route::prefix('cms')->group(function () {
     Route::get('/admin/login', [AuthController::class, 'loginView'])->name('auth.login');
     Route::post('/login', [AuthController::class, 'login']);
 });
-Route::prefix('cms/admin')->middleware('auth')->group(function () {
+Route::prefix('cms/admin')->middleware('auth:admin')->group(function () {
     Route::put('/update/{admin}', [AuthController::class, 'update'])->name('admin.update');
     Route::get('profile', [AuthController::class, 'show_profile'])->name('admin.admin_profile');
     Route::get('edit-profile', [AuthController::class, 'edit_profile'])->name('edit_admin_profile');
 });
-Route::prefix('cms/admin')->middleware('auth')->group(function () {
+Route::prefix('cms/admin')->middleware('auth:admin')->group(function () {
     Route::get('/', [AuthController::class, 'welcom'])->name('dashboard');
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);

@@ -47,8 +47,8 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             "price" => 'required|numeric',
-            "range_5" => 'required|integer',
-            // "rate" => 'required|integer',
+            // "range_5" => 'required|integer',
+            "rate" => 'required|numeric',
             "description" => 'required|string',
             "image" => 'required|file|mimes:jpeg,png,jpg',
             "category_id" => 'required|numeric|exists:App\Models\Category,id',
@@ -60,7 +60,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->name = $request->input('name');
             $product->price = $request->input('price');
-            $product->rate = $request->input('range_5');
+            $product->rate = $request->input('rate');
             $product->description = $request->input('description');
             $product->category_id = $request->input("category_id");
             if ($request->hasFile('image')) {
@@ -125,8 +125,8 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             "price" => 'required|numeric',
-            "range_5" => 'required|integer',
-            // "rate" => 'required|integer',
+            // "range_5" => 'required|integer',
+            "rate" => 'required|numeric',
             "description" => 'required|string',
             "image" => 'required|file|mimes:jpeg,png,jpg',
             "category_id" => 'required|numeric|exists:App\Models\Category,id',
@@ -135,10 +135,9 @@ class ProductController extends Controller
         ]);
 //         dd($request);
         if (!$validator->fails()) {
-//            $product = new Product();
             $product->name = $request->name;
             $product->price = $request->price;
-            $product->rate = $request->range_5;
+            $product->rate = $request->rate;
             $product->description = $request->description;
             $product->category_id = $request->category_id;
             if ($request->hasFile('image')) {

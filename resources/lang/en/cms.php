@@ -27,7 +27,7 @@ return [
     "save" => "Save",
     "edit" => "Edit",
     "update" => "Update",
-    "edit_city" => "Edit City",
+    "edit_category" => "Edit Category",
     "users" => "Users",
     "create_user" => "Create User",
     "update_user" => "Update User",
