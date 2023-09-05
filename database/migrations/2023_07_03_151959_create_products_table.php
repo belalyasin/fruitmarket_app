@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('name');
             $table->double('price');
-            $table->enum('rate',["0","1","2","3","4","5"]);
+            $table->double('rate',);
             $table->string('description');
             $table->string('image');
             $table->boolean('isFavorite')->default(false);
