@@ -19,15 +19,26 @@ class Product extends Model
     }
     public function carts()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(Cart::class);
+        // return $this->belongsTo(Cart::class);
     }
     public function favourites()
     {
-        return $this->belongsTo(Favourite::class);
+        return $this->hasMany(Favourite::class);
+        // return $this->belongsTo(Favourite::class);
     }
     public function orders()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasMany(Order_Product::class);
+    }
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        return $this->rates->avg('rate');
     }
 
     public function product_nutrition()
