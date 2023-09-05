@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Favourite;
 use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
@@ -13,6 +14,22 @@ class FavouriteController extends Controller
     public function index()
     {
         //
+        $user = auth()->user();
+        // dd($user);
+        $favorites = Favourite::where('user_id', '=', $user->id)->with('product')->get();
+        // dd($favorites);
+        $data = $favorites->map(function ($favorite) {
+            return [
+                "id" => $favorite->id,
+                "name" => $favorite->product->name,
+                "price" => $favorite->product->price,
+                "rate" => $favorite->product->rate,
+                // "description" => $favorite->description,
+                "image" => $favorite->product->image,
+                "count" => $favorite->count,
+            ];
+        });
+        return response()->json(["data" => $data], status: 200);
     }
 
     /**
