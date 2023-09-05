@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer("count");
-            // $table->double("total");
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Product::class)->constrained();
+            $table->double("total")->nullable();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->date("delivered_at")->nullable();
             $table->timestamps();
         });
