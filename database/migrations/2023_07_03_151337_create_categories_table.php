@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description')->nullable();
             $table->float('discount')->nullable();
-            $table->foreignId('parent_id')->constrained('categories', 'id')->cascadeOnUpdate()->cascadeOnUpdate();
+            $table->foreignId('parent_id')->nullable()->constrained('categories', 'id')->cascadeOnUpdate()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
