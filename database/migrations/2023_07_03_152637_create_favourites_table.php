@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('favourites', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer("count");
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Product::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
