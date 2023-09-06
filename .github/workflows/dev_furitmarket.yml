@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'furitmarket'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C31358494104458A94374CE7CF301E70 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_27D4C0983EA44100B3293C16D28E9D81 }}
           package: .
