@@ -28,17 +28,23 @@
         <h2 class="text-success text-center text-bold">Fruit Market</h2>
     </div>
 
+
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="cms/index2.html" class="h1"><b>Fruit Market</b>APP</a>
+            <a href="#" class="h1"><b>Fruit Market</b>APP</a>
         </div>
         <div class="card-body">
+            <div class="alert alert-info text-center">
+                <strong>Demo Credentials</strong><br>
+                Email: <code>demo@example.com</code><br>
+                Password: <code>0(E/m3oh4P1.lsdm</code>
+            </div>
             <p class="login-box-msg">Sign in to start your session</p>
 
             <form>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email" id="email">
+                    <input type="email" class="form-control" placeholder="Email" id="email" value="demo@example.com">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -46,7 +52,8 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" id="password">
+                    <input type="password" class="form-control" placeholder="Password" id="password"
+                           value="0(E/m3oh4P1.lsdm">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
