@@ -2,25 +2,32 @@ FROM php:8.1-fpm-alpine
 
 WORKDIR /var/www
 
+# تثبيت الحزم الأساسية باستخدام apk
 RUN apk add --no-cache \
-    zip unzip curl git libxml2-dev libzip-dev libpng-dev libjpeg-turbo-dev \
-    sqlite sqlite-dev
+    git openssh \
+    libzip-dev libpng-dev libjpeg-turbo-dev \
+    libxml2-dev \
+    oniguruma-dev \
+    sqlite-dev \
+    unzip \
+    curl \
+    # تثبيت composer
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+# تثبيت امتدادات PHP
+RUN docker-php-ext-configure gd --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+# نسخ ملفات المشروع
 COPY . /var/www
 
-COPY --chown=www-data:www-data . /var/www
-
+# تثبيت حزم Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chmod -R 755 /var/www
-RUN composer install
+# إعداد الصلاحيات
+RUN chown -R www-data:www-data /var/www
 
-COPY .env.example .env
-RUN php artisan key:generate
+EXPOSE 9000
 
-EXPOSE 8000
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD ["php-fpm"]
