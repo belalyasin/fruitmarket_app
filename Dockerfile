@@ -2,9 +2,9 @@ FROM php:8.1-fpm-alpine
 
 WORKDIR /var/www
 
-RUN apt-get update && apt-get install -y \
-    zip unzip curl git libxml2-dev libzip-dev libpng-dev libjpeg-dev libonig-dev \
-    sqlite3 libsqlite3-dev
+RUN apk add --no-cache \
+    zip unzip curl git libxml2-dev libzip-dev libpng-dev libjpeg-turbo-dev \
+    sqlite sqlite-dev
 
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
