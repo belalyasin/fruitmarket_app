@@ -7,6 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+[![DeepScan grade](https://deepscan.io/api/teams/25626/projects/28490/branches/919111/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=25626&pid=28490&bid=919111)
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
